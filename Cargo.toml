@@ -1,0 +1,21 @@
+[package]
+name = "unembedx"
+version = "0.1.0"
+authors = ["David Hedberg <david.hedberg@gmail.com>"]
+edition = "2018"
+
+[features]
+default = ["filetypes"]
+filetypes = ["magic", "new_mime_guess"]
+
+[dependencies]
+anyhow = "1.0"
+cfb = "0.6"
+env_logger = "0.8"
+lazy_static = "1.4"
+log = "0.4"
+magic = { version = "0.12", optional = true }
+new_mime_guess = { version = "3.0", optional = true }
+structopt = "0.3"
+tempfile = "3.2"
+zip = "0.5"
