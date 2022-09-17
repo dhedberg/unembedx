@@ -2,7 +2,7 @@
 name = "unembedx"
 version = "0.1.0"
 authors = ["David Hedberg <david.hedberg@gmail.com>"]
-edition = "2018"
+edition = "2021"
 
 [features]
 default = ["filetypes"]
