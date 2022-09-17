@@ -22,7 +22,7 @@ pub fn get_next_filename(base: &str) -> String {
 
 #[cfg(feature = "filetypes")]
 pub fn guess_extension_from_contents(path: &Path) -> Result<Option<String>, Error> {
-    let cookie = magic::Cookie::open(magic::flags::MIME_TYPE)?;
+    let cookie = magic::Cookie::open(magic::CookieFlags::MIME_TYPE)?;
     cookie.load(&["/usr/share/file/magic"])?;
 
     let guessed_extension = cookie

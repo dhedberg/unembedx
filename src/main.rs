@@ -3,26 +3,26 @@ use std::io::{Cursor, Read, Seek};
 use std::path::PathBuf;
 
 use anyhow::{anyhow, Error};
-use structopt::StructOpt;
+use clap::Parser;
 
 trait ReadSeek: Read + Seek {}
 impl ReadSeek for Cursor<Vec<u8>> {}
 impl ReadSeek for File {}
 
-#[derive(Debug, StructOpt)]
-#[structopt(about = "Extract embedded files from documents")]
+#[derive(Debug, Parser)]
+#[clap(about = "Extract embedded files from documents")]
 struct Opt {
-    #[structopt(short, long)]
+    #[clap(short, long)]
     target_dir: Option<PathBuf>,
 
-    #[structopt(help = "Path to an office file", parse(from_os_str))]
+    #[clap(help = "Path to an office file", parse(from_os_str))]
     file: PathBuf,
 }
 
 fn main() -> Result<(), Error> {
     env_logger::init();
 
-    let opt = Opt::from_args();
+    let opt = Opt::parse();
 
     let target_dir = opt
         .target_dir
