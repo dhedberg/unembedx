@@ -10,12 +10,12 @@ impl ReadSeek for Cursor<Vec<u8>> {}
 impl ReadSeek for File {}
 
 #[derive(Debug, Parser)]
-#[clap(about = "Extract embedded files from documents")]
+#[command(about = "Extract embedded files from documents")]
 struct Opt {
-    #[clap(short, long)]
+    #[arg(short, long)]
     target_dir: Option<PathBuf>,
 
-    #[clap(help = "Path to an office file", parse(from_os_str))]
+    #[arg(help = "Path to an office file")]
     file: PathBuf,
 }
 
