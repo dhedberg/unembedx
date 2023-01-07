@@ -20,7 +20,7 @@ pub fn extract_embedded_files<T: AsRef<Path>, S: AsRef<Path>>(
 ) -> Result<usize, Error> {
     let source = source.as_ref();
 
-    let mut archive = File::open(&source)
+    let mut archive = File::open(source)
         .map_err(|e| e.into())
         .and_then(ZipArchive::new)
         .with_context(|| format!("Could not open {:?}", source))?;
