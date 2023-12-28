@@ -2,7 +2,7 @@ use std::collections::HashMap;
 use std::path::Path;
 use std::sync::Mutex;
 
-use anyhow::Error;
+use anyhow::{anyhow, Error};
 use lazy_static::lazy_static;
 
 pub fn get_next_filename(base: &str) -> String {
@@ -22,8 +22,11 @@ pub fn get_next_filename(base: &str) -> String {
 
 #[cfg(feature = "filetypes")]
 pub fn guess_extension_from_contents(path: &Path) -> Result<Option<String>, Error> {
-    let cookie = magic::Cookie::open(magic::CookieFlags::MIME_TYPE)?;
-    cookie.load(&["/usr/share/file/magic"])?;
+    let cookie = magic::Cookie::open(magic::cookie::Flags::MIME_TYPE)?;
+
+    let database = Default::default();
+    let cookie = cookie.load(&database)
+        .map_err(|e| anyhow!("Failed to load magic database: {:?}", e))?;
 
     let guessed_extension = cookie
         .file(path)
